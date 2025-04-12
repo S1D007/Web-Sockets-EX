@@ -21,8 +21,8 @@ Before you begin, ensure you have the following installed:
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
-cd web-sockets
+git clone https://github.com/S1D007/Web-Sockets-EX
+cd Web-Sockets-EX
 ```
 
 2. Install dependencies:
