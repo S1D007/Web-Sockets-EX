@@ -11,7 +11,7 @@ defmodule WebsocketApp.Realtime.SocketHandler do
     {:ok, %{socket_id: socket_id, user_id: user_id, last_ping: DateTime.utc_now()}}
   end
 
-  def handle_info(:check_health, state) do 
+  def handle_info(:check_health, state) do
     if DateTime.diff(DateTime.utc_now(), state.last_ping) > 60 do
       {:stop, :normal, state}
     else
