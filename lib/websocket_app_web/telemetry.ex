@@ -9,11 +9,11 @@ defmodule WebsocketAppWeb.Telemetry do
   @impl true
   def init(_arg) do
     children = [
-      # Telemetry poller will execute the given period measurements
-      # every 10_000ms. Learn more here: https://hexdocs.pm/telemetry_metrics
+
+
       {:telemetry_poller, measurements: periodic_measurements(), period: 10_000}
-      # Add reporters as children of your supervision tree.
-      # {Telemetry.Metrics.ConsoleReporter, metrics: metrics()}
+
+
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
@@ -21,7 +21,7 @@ defmodule WebsocketAppWeb.Telemetry do
 
   def metrics do
     [
-      # Phoenix Metrics
+
       summary("phoenix.endpoint.start.system_time",
         unit: {:native, :millisecond}
       ),
@@ -52,7 +52,7 @@ defmodule WebsocketAppWeb.Telemetry do
         unit: {:native, :millisecond}
       ),
 
-      # Database Metrics
+
       summary("websocket_app.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
@@ -75,7 +75,7 @@ defmodule WebsocketAppWeb.Telemetry do
           "The time the connection spent waiting before being checked out for the query"
       ),
 
-      # VM Metrics
+
       summary("vm.memory.total", unit: {:byte, :kilobyte}),
       summary("vm.total_run_queue_lengths.total"),
       summary("vm.total_run_queue_lengths.cpu"),
@@ -85,9 +85,9 @@ defmodule WebsocketAppWeb.Telemetry do
 
   defp periodic_measurements do
     [
-      # A module, function and arguments to be invoked periodically.
-      # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {WebsocketAppWeb, :count_users, []}
+
+
+
     ]
   end
 end

@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger
+  namespace: websocket-app
+  labels:
+    app: jaeger
+spec:
+  ports:
+  - name: agent-compact
+    port: 6831
+    protocol: UDP
+    targetPort: 6831
+  - name: agent-binary
+    port: 6832
+    protocol: UDP
+    targetPort: 6832
+  - name: collector-http
+    port: 14268
+    targetPort: 14268
+  - name: collector-zipkin
+    port: 9411
+    targetPort: 9411
+  - name: query
+    port: 16686
+    targetPort: 16686
+  selector:
+    app: jaeger
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger
+  namespace: websocket-app
+  labels:
+    app: jaeger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger
+  template:
+    metadata:
+      labels:
+        app: jaeger
+    spec:
+      containers:
+      - name: jaeger
+        image: jaegertracing/all-in-one:1.40
+        env:
+        - name: COLLECTOR_ZIPKIN_HOST_PORT
+          value: ":9411"
+        - name: MEMORY_MAX_TRACES
+          value: "100000"
+        ports:
+        - containerPort: 6831
+          protocol: UDP
+        - containerPort: 6832
+          protocol: UDP
+        - containerPort: 14268
+        - containerPort: 9411
+        - containerPort: 16686
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 100m
+            memory: 256Mi

@@ -22,7 +22,7 @@ defmodule WebsocketAppWeb.CoreComponents do
   @doc """
   Renders a modal.
 
-  ## Examples
+
 
       <.modal id="confirm-modal">
         This is a modal.
@@ -92,7 +92,7 @@ defmodule WebsocketAppWeb.CoreComponents do
   @doc """
   Renders flash notices.
 
-  ## Examples
+
 
       <.flash kind={:info} flash={@flash} />
       <.flash kind={:info} phx-mounted={show("#flash")}>Welcome Back!</.flash>
@@ -137,7 +137,7 @@ defmodule WebsocketAppWeb.CoreComponents do
   @doc """
   Shows the flash group with standard titles and content.
 
-  ## Examples
+
 
       <.flash_group flash={@flash} />
   """
@@ -153,7 +153,7 @@ defmodule WebsocketAppWeb.CoreComponents do
         id="client-error"
         kind={:error}
         title={gettext("We can't find the internet")}
-        phx-disconnected={show(".phx-client-error #client-error")}
+        phx-disconnected={show(".phx-client-error
         phx-connected={hide("#client-error")}
         hidden
       >
@@ -165,7 +165,7 @@ defmodule WebsocketAppWeb.CoreComponents do
         id="server-error"
         kind={:error}
         title={gettext("Something went wrong!")}
-        phx-disconnected={show(".phx-server-error #server-error")}
+        phx-disconnected={show(".phx-server-error
         phx-connected={hide("#server-error")}
         hidden
       >
@@ -179,7 +179,7 @@ defmodule WebsocketAppWeb.CoreComponents do
   @doc """
   Renders a simple form.
 
-  ## Examples
+
 
       <.simple_form for={@form} phx-change="validate" phx-submit="save">
         <.input field={@form[:email]} label="Email"/>
@@ -215,7 +215,7 @@ defmodule WebsocketAppWeb.CoreComponents do
   @doc """
   Renders a button.
 
-  ## Examples
+
 
       <.button>Send!</.button>
       <.button phx-click="go" class="ml-2">Send!</.button>
@@ -249,7 +249,7 @@ defmodule WebsocketAppWeb.CoreComponents do
   which is used to retrieve the input name, id, and values.
   Otherwise all attributes may be passed explicitly.
 
-  ## Types
+
 
   This function accepts all HTML input types, considering that:
 
@@ -263,7 +263,7 @@ defmodule WebsocketAppWeb.CoreComponents do
   for more information. Unsupported types, such as hidden and radio,
   are best written directly in your templates.
 
-  ## Examples
+
 
       <.input field={@form[:email]} type="email" />
       <.input name="my-input" errors={["oh no!"]} />
@@ -366,7 +366,7 @@ defmodule WebsocketAppWeb.CoreComponents do
     """
   end
 
-  # All other inputs text, datetime-local, url, password, etc. are handled here...
+
   def input(assigns) do
     ~H"""
     <div>
@@ -444,7 +444,7 @@ defmodule WebsocketAppWeb.CoreComponents do
   @doc ~S"""
   Renders a table with generic styling.
 
-  ## Examples
+
 
       <.table id="users" rows={@users}>
         <:col :let={user} label="id">{user.id}</:col>
@@ -522,7 +522,7 @@ defmodule WebsocketAppWeb.CoreComponents do
   @doc """
   Renders a data list.
 
-  ## Examples
+
 
       <.list>
         <:item title="Title">{@post.title}</:item>
@@ -549,7 +549,7 @@ defmodule WebsocketAppWeb.CoreComponents do
   @doc """
   Renders a back navigation link.
 
-  ## Examples
+
 
       <.back navigate={~p"/posts"}>Back to posts</.back>
   """
@@ -583,7 +583,7 @@ defmodule WebsocketAppWeb.CoreComponents do
   Icons are extracted from the `deps/heroicons` directory and bundled within
   your compiled app.css by the plugin in your `assets/tailwind.config.js`.
 
-  ## Examples
+
 
       <.icon name="hero-x-mark-solid" />
       <.icon name="hero-arrow-path" class="ml-1 w-3 h-3 animate-spin" />
@@ -597,7 +597,7 @@ defmodule WebsocketAppWeb.CoreComponents do
     """
   end
 
-  ## JS Commands
+
 
   def show(js \\ %JS{}, selector) do
     JS.show(js,
@@ -650,16 +650,16 @@ defmodule WebsocketAppWeb.CoreComponents do
   Translates an error message using gettext.
   """
   def translate_error({msg, opts}) do
-    # When using gettext, we typically pass the strings we want
-    # to translate as a static argument:
-    #
-    #     # Translate the number of files with plural rules
-    #     dngettext("errors", "1 file", "%{count} files", count)
-    #
-    # However the error messages in our forms and APIs are generated
-    # dynamically, so we need to translate them by calling Gettext
-    # with our gettext backend as first argument. Translations are
-    # available in the errors.po file (as we use the "errors" domain).
+
+
+
+
+
+
+
+
+
+
     if count = opts[:count] do
       Gettext.dngettext(WebsocketAppWeb.Gettext, "errors", msg, msg, count, opts)
     else

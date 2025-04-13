@@ -25,7 +25,7 @@ defmodule WebsocketApp.Realtime.SocketHandler do
   end
 
   def terminate(reason, state) do
-    Logger.info("Socket #{state.socket_id} terminated: #{inspect(reason)}")
+    Logger.info("Socket
     :ok
   end
 

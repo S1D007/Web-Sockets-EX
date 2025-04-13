@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: websocket-app
+  namespace: websocket-app
+  labels:
+    app: websocket-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: websocket-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: websocket-app
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - websocket-app
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: websocket-app
+        image: ${REGISTRY}/websocket-app:latest
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+        ports:
+        - containerPort: 4000
+          name: http
+        envFrom:
+        - configMapRef:
+            name: websocket-app-config
+        - secretRef:
+            name: app-secrets
+        livenessProbe:
+          httpGet:
+            path: /health/liveness
+            port: 4000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health/readiness
+            port: 4000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: websocket-app-service
+  namespace: websocket-app
+  labels:
+    app: websocket-app
+spec:
+  selector:
+    app: websocket-app
+  ports:
+  - port: 80
+    targetPort: 4000
+    name: http
+  type: ClusterIP

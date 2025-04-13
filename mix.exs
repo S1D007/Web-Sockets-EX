@@ -13,9 +13,9 @@ defmodule WebsocketApp.MixProject do
     ]
   end
 
-  # Configuration for the OTP application.
-  #
-  # Type `mix help compile.app` for more information.
+
+
+
   def application do
     [
       mod: {WebsocketApp.Application, []},
@@ -23,13 +23,13 @@ defmodule WebsocketApp.MixProject do
     ]
   end
 
-  # Specifies which paths to compile per environment.
+
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
-  # Specifies your project dependencies.
-  #
-  # Type `mix help deps` for examples and options.
+
+
+
   defp deps do
     [
       {:phoenix, "~> 1.7.21"},
@@ -57,16 +57,27 @@ defmodule WebsocketApp.MixProject do
       {:gettext, "~> 0.26"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+
+
+      {:prometheus_ex, "~> 3.0"},
+      {:prometheus_plugs, "~> 1.1"},
+      {:redix, "~> 1.1"},
+      {:poolboy, "~> 1.5"},
+      {:opentelemetry, "~> 1.0"},
+      {:opentelemetry_exporter, "~> 1.0"},
+      {:opentelemetry_phoenix, "~> 1.0"},
+      {:logger_json, "~> 5.0"},
+      {:libcluster, "~> 3.3"}
     ]
   end
 
-  # Aliases are shortcuts or tasks specific to the current project.
-  # For example, to install project dependencies and perform other setup tasks, run:
-  #
-  #     $ mix setup
-  #
-  # See the documentation for `Mix` for more info on aliases.
+
+
+
+
+
+
   defp aliases do
     [
       setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],

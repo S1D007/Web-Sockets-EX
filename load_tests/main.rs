@@ -11,19 +11,19 @@ use url::Url;
 #[derive(Parser, Debug)]
 #[clap(about = "WebSocket load tester")]
 struct Args {
-    #[clap(short, long, default_value = "100")]
+
     concurrent: usize,
 
-    #[clap(short, long, default_value = "1000")]
+
     total: usize,
 
-    #[clap(short, long, default_value = "localhost:4000")]
+
     host: String,
 
-    #[clap(short, long, default_value = "10")]
+
     rate: u64,
 
-    #[clap(short, long, default_value = "60")]
+
     duration: u64,
 }
 

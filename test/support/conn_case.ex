@@ -19,12 +19,12 @@ defmodule WebsocketAppWeb.ConnCase do
 
   using do
     quote do
-      # The default endpoint for testing
+
       @endpoint WebsocketAppWeb.Endpoint
 
       use WebsocketAppWeb, :verified_routes
 
-      # Import conveniences for testing with connections
+
       import Plug.Conn
       import Phoenix.ConnTest
       import WebsocketAppWeb.ConnCase

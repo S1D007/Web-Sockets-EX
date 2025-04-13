@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-test
+  namespace: websocket-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: load-test
+  template:
+    metadata:
+      labels:
+        app: load-test
+    spec:
+      containers:
+      - name: load-test
+        image: golang:1.19
+        resources:
+          limits:
+            cpu: "2"
+            memory: "2Gi"
+          requests:
+            cpu: "1"
+            memory: "1Gi"
+        command: 
+          - "/bin/bash"
+          - "-c"
+          - |
+            apt-get update && apt-get install -y git
+            git clone https://github.com/S1D007/Web-Sockets-EX /app
+            cd /app/load_tests
+            go mod download
+            go run main.go -c 500 -n 10000 -h websocket-app-service.websocket-app.svc.cluster.local -r 20 -d 300
+        env:
+        - name: GOMAXPROCS
+          value: "2"
